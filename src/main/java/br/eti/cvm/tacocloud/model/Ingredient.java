@@ -1,11 +1,10 @@
 package br.eti.cvm.tacocloud.model;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+
+@Data
 @RequiredArgsConstructor
 public class Ingredient {
     private final String id;

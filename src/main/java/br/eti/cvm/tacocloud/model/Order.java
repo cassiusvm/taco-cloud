@@ -1,10 +1,8 @@
 package br.eti.cvm.tacocloud.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class Order {
     private String name;
     private String street;
