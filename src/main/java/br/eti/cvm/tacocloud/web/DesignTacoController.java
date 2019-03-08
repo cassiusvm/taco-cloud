@@ -19,38 +19,38 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
-	@GetMapping
-	public String showDesignForm(Model model) {
-		List<Ingredient> ingredients = Arrays.asList(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
-				new Ingredient("COTO", "Corn Tortilla", Type.WRAP), new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
-				new Ingredient("CARN", "Carnitas", Type.PROTEIN),
-				new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES), new Ingredient("LETC", "Lettuce", Type.VEGGIES),
-				new Ingredient("CHED", "Cheddar", Type.CHEESE), new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
-				new Ingredient("SLSA", "Salsa", Type.SAUCE), new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
-		Type[] types = Ingredient.Type.values();
-		for (Type type : types) {
-			model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
-		}
-		model.addAttribute("design", new Design());
-		return "design";
-	}
+    @GetMapping
+    public String showDesignForm(Model model) {
+        List<Ingredient> ingredients = Arrays.asList(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP),
+                new Ingredient("COTO", "Corn Tortilla", Type.WRAP), new Ingredient("GRBF", "Ground Beef", Type.PROTEIN),
+                new Ingredient("CARN", "Carnitas", Type.PROTEIN),
+                new Ingredient("TMTO", "Diced Tomatoes", Type.VEGGIES), new Ingredient("LETC", "Lettuce", Type.VEGGIES),
+                new Ingredient("CHED", "Cheddar", Type.CHEESE), new Ingredient("JACK", "Monterrey Jack", Type.CHEESE),
+                new Ingredient("SLSA", "Salsa", Type.SAUCE), new Ingredient("SRCR", "Sour Cream", Type.SAUCE));
+        Type[] types = Ingredient.Type.values();
+        for (Type type : types) {
+            model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
+        }
+        model.addAttribute("design", new Design());
+        return "design";
+    }
 
-	@PostMapping
-	public String processDesign(Design design) {
-		// Save the taco design...
-		// We'll do this in chapter 3
-		log.info("Processing design: " + design);
-		return "redirect:/orders/current";
-	}
+    @PostMapping
+    public String processDesign(Design design) {
+        // Save the taco design...
+        // We'll do this in chapter 3
+        log.info("Processing design: " + design);
+        return "redirect:/orders/current";
+    }
 
-	private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
-		List<Ingredient> ingredientsByType = new ArrayList<Ingredient>();
+    private List<Ingredient> filterByType(List<Ingredient> ingredients, Type type) {
+        List<Ingredient> ingredientsByType = new ArrayList<Ingredient>();
 
-		for (Ingredient ingredient : ingredients) {
-			if (type.equals(ingredient.getType()))
-				ingredientsByType.add(ingredient);
-		}
+        for (Ingredient ingredient : ingredients) {
+            if (type.equals(ingredient.getType()))
+                ingredientsByType.add(ingredient);
+        }
 
-		return ingredientsByType;
-	}
+        return ingredientsByType;
+    }
 }
