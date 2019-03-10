@@ -1,12 +1,13 @@
 package br.eti.cvm.tacocloud.web;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import br.eti.cvm.tacocloud.model.Order;
 import br.eti.cvm.tacocloud.model.Taco;
 import br.eti.cvm.tacocloud.repository.IngredientRepository;
+import br.eti.cvm.tacocloud.repository.TacoRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -25,11 +26,19 @@ import javax.validation.Valid;
 public class DesignTacoController {
     private final IngredientRepository ingredientRepository;
 
-    public DesignTacoController(IngredientRepository ingredientRepository) {
+    private TacoRepository tacoRepository;
+
+    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
         this.ingredientRepository = ingredientRepository;
+        this.tacoRepository = tacoRepository;
     }
 
-    @ModelAttribute(name = "design")
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+    @ModelAttribute(name = "taco")
     public Taco taco() {
         return new Taco();
     }
@@ -48,12 +57,13 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(@Valid @ModelAttribute("design") Taco design, Errors errors, Model model) {
+    public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
         if(errors.hasErrors()) {
             return "design";
         }
 
-        log.info("Processing design: " + design);
+        Taco saved = tacoRepository.save(design);
+        order.addDesign(saved);
 
         return "redirect:/orders/current";
     }

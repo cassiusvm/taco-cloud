@@ -1,7 +1,6 @@
 package br.eti.cvm.tacocloud.repository;
 
 import br.eti.cvm.tacocloud.model.Ingredient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
@@ -33,6 +32,13 @@ public class JdbcIngredientRepository implements IngredientRepository {
                                 Ingredient.Type.valueOf(rs.getString("type")));
                     };
                 }, id);
+    }
+
+    @Override
+    public Ingredient findById(String id) {
+        return jdbc.queryForObject(
+                "select id, name, type from Ingredient where id=?",
+                this::mapRowToIngredient, id);
     }
 
     @Override
