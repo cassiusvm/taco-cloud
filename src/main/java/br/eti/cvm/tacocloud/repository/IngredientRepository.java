@@ -1,13 +1,8 @@
 package br.eti.cvm.tacocloud.repository;
 
 import br.eti.cvm.tacocloud.model.Ingredient;
+import org.springframework.data.repository.CrudRepository;
 
-public interface IngredientRepository {
-    Iterable<Ingredient> findAll();
+public interface IngredientRepository extends CrudRepository<Ingredient, String> {
 
-    Ingredient findById(String id);
-
-    Ingredient findOne(String id);
-
-    Ingredient save(Ingredient ingredient);
 }

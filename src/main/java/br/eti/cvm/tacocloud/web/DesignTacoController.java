@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import br.eti.cvm.tacocloud.model.Order;
 import br.eti.cvm.tacocloud.model.Taco;
+import br.eti.cvm.tacocloud.model.Type;
 import br.eti.cvm.tacocloud.repository.IngredientRepository;
 import br.eti.cvm.tacocloud.repository.TacoRepository;
 import org.springframework.stereotype.Controller;
@@ -14,7 +15,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import br.eti.cvm.tacocloud.model.Ingredient;
-import br.eti.cvm.tacocloud.model.Ingredient.Type;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.validation.Valid;
@@ -48,7 +48,7 @@ public class DesignTacoController {
         List<Ingredient> ingredients = new ArrayList<>();
         ingredientRepository.findAll().forEach(i -> ingredients.add(i));
 
-        Type[] types = Ingredient.Type.values();
+        Type[] types = Type.values();
         for(Type type : types) {
             model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
         }

@@ -5,6 +5,8 @@ import br.eti.cvm.tacocloud.repository.IngredientRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
@@ -16,7 +18,8 @@ public class IngredientByIdConverter implements Converter<String, Ingredient> {
   
   @Override
   public Ingredient convert(String id) {
-    return ingredientRepository.findById(id);
+    Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
+    return optionalIngredient.get();
   }
 
 }
