@@ -10,16 +10,16 @@ import java.util.Optional;
 @Component
 public class IngredientByIdConverter implements Converter<String, Ingredient> {
 
-  private IngredientRepository ingredientRepository;
+    private IngredientRepository ingredientRepository;
 
-  public IngredientByIdConverter(IngredientRepository ingredientRepository) {
-    this.ingredientRepository = ingredientRepository;
-  }
-  
-  @Override
-  public Ingredient convert(String id) {
-    Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
-    return optionalIngredient.get();
-  }
+    public IngredientByIdConverter(IngredientRepository ingredientRepository) {
+        this.ingredientRepository = ingredientRepository;
+    }
+
+    @Override
+    public Ingredient convert(String id) {
+        Optional<Ingredient> optionalIngredient = ingredientRepository.findById(id);
+        return optionalIngredient.get();
+    }
 
 }
